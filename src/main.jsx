@@ -16,6 +16,9 @@ import ContentModeration from "./Components/Dashboard/AdminLayout/ContentModerat
 import QuotePack from "./Components/Dashboard/AdminLayout/Quote/QuotePack";
 import NewQuote from "./Components/Dashboard/AdminLayout/Quote/NewQuote";
 import EditPack from "./Components/Dashboard/AdminLayout/Quote/EditPack";
+import UserManagementTable from "./Components/Dashboard/AdminLayout/UserManagementTable";
+import UserFeedbackTable from "./Components/Dashboard/AdminLayout/UserFeedbackTable";
+import Settings from "./Components/Dashboard/AdminLayout/Settings/Settings";
 
 const router = createBrowserRouter([
   {
@@ -59,8 +62,16 @@ const router = createBrowserRouter([
         element: <NewQuote></NewQuote>,
       },
       {
-        path: "/privacy",
-        element: <Privacy></Privacy>,
+        path: "/user-management",
+        element: <UserManagementTable></UserManagementTable>,
+      },
+      {
+        path: "/user-feedback",
+        element: <UserFeedbackTable></UserFeedbackTable>,
+      },
+      {
+        path: "/settings",
+        element: <Settings></Settings>,
       },
       {
         path: "/terms",
