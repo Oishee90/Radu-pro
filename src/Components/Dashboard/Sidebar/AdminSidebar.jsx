@@ -28,6 +28,8 @@ const AdminSidebar = ({ collapsed }) => {
     location.pathname.startsWith("/user-management");
   const isActiveUserFeedback = location.pathname.startsWith("/user-feedback");
   const isActiveSettings = location.pathname.startsWith("/settings");
+  const isActivePayments = location.pathname.startsWith("/payments");
+  const isActiveSubscriptions = location.pathname.startsWith("/subscriptions");
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     navigate("/login", { replace: true });
@@ -156,11 +158,9 @@ const AdminSidebar = ({ collapsed }) => {
             <div className="flex items-center justify-between w-[280px] font-medium pb-3">
               <div
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
-                  collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
+                  collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px]   "
                 } ${
-                  isActiveQuote
-                    ? "orange text-[#FAF1E6] rounded-xl"
-                    : "base-color"
+                  isActivePayments ? "orange text-[#FAF1E6] " : "base-color"
                 }`}
               >
                 <MdOutlinePayment className="w-[24px] h-[24px]" />
@@ -178,11 +178,9 @@ const AdminSidebar = ({ collapsed }) => {
             <div className="flex items-center justify-between w-[280px] font-medium pb-3">
               <div
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
-                  collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
+                  collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px]   "
                 } ${
-                  isActiveQuote
-                    ? "orange text-[#FAF1E6] rounded-xl"
-                    : "base-color"
+                  isActiveSubscriptions ? "orange text-[#FAF1E6]" : "base-color"
                 }`}
               >
                 <MdOutlineSubscriptions className="w-[24px] h-[24px]" />

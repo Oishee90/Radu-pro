@@ -165,13 +165,13 @@ const SubscriptionPlans = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="px-6 py-6 max-w-7xl mx-auto">
+      <div className="px-6 py-6 ">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Subscriptions</h1>
           <button
             onClick={openCreateModal}
-            className="px-4 py-2 bg-orange-600 text-white font-medium rounded-md hover:bg-orange-700 transition flex items-center gap-2"
+            className="flex items-center gap-2 px-4 py-2 font-medium text-white transition bg-orange-600 rounded-md hover:bg-orange-700"
           >
             <Plus className="w-5 h-5" />
             Create New Plan
@@ -179,16 +179,16 @@ const SubscriptionPlans = () => {
         </div>
 
         {/* Plans Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col h-full"
+              className="flex flex-col h-full bg-white border border-gray-300 shadow-sm rounded-xl"
             >
               {/* Card Content - grows to fill space */}
-              <div className="p-6 flex-1 flex flex-col">
+              <div className="flex flex-col flex-1 p-6">
                 {/* Header */}
-                <div className="flex justify-between items-start mb-4">
+                <div className="flex items-start justify-between mb-4">
                   <div>
                     <h2 className="text-xl font-semibold text-gray-900">
                       {plan.name}
@@ -196,14 +196,14 @@ const SubscriptionPlans = () => {
                     <p className="text-sm text-gray-600">{plan.description}</p>
                   </div>
                   {plan.isDefault && (
-                    <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
+                    <span className="px-3 py-1 text-xs font-medium text-blue-700 bg-blue-100 rounded-full">
                       Default
                     </span>
                   )}
                 </div>
 
                 {/* Price */}
-                <div className="mb-6 flex justify-between items-center">
+                <div className="flex items-center justify-between mb-6">
                   <p className="text-lg font-bold text-gray-700">
                     User Acquisition & Retention
                   </p>
@@ -221,9 +221,9 @@ const SubscriptionPlans = () => {
                 <div className="flex-1 space-y-5">
                   {plan.features.map((feat, idx) => (
                     <div key={idx}>
-                      <h3 className="font-medium text-gray-900 flex items-center gap-2">
+                      <h3 className="flex items-center gap-2 font-medium text-gray-900">
                         {idx === 0 ? (
-                          <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center">
+                          <div className="flex items-center justify-center w-6 h-6 bg-orange-100 rounded-full">
                             <Check className="w-4 h-4 text-orange-600" />
                           </div>
                         ) : (
@@ -231,7 +231,7 @@ const SubscriptionPlans = () => {
                         )}
                         {feat.title}
                       </h3>
-                      <ul className="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1 ml-7">
+                      <ul className="mt-2 space-y-1 text-sm text-gray-600 list-disc list-inside ml-7">
                         {feat.items.map((item, i) => (
                           <li key={i}>{item}</li>
                         ))}
@@ -242,16 +242,16 @@ const SubscriptionPlans = () => {
               </div>
 
               {/* Bottom Border + Buttons - always at bottom */}
-              <div className="border-t-2 border-gray-200 pt-4 px-6 pb-6">
-                <div className="flex justify-between items-center gap-3">
+              <div className="px-6 pt-4 pb-6 border-t-2 border-gray-200">
+                <div className="flex items-center justify-between gap-3">
                   {plan.status === "active" ? (
                     <>
-                      <button className="px-4 py-2 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 transition">
+                      <button className="px-4 py-2 font-medium text-white transition bg-green-600 rounded-md hover:bg-green-700">
                         Activate
                       </button>
                       <button
                         onClick={() => openEditModal(plan)}
-                        className="px-4 py-2 bg-orange-600 text-white font-medium rounded-md hover:bg-orange-700 transition flex items-center gap-1"
+                        className="flex items-center gap-1 px-4 py-2 font-medium text-white transition bg-orange-600 rounded-md hover:bg-orange-700"
                       >
                         <Edit className="w-4 h-4" />
                         Edit
@@ -259,12 +259,12 @@ const SubscriptionPlans = () => {
                     </>
                   ) : (
                     <>
-                      <button className="px-4 py-2 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 transition">
+                      <button className="px-4 py-2 font-medium text-white transition bg-red-600 rounded-md hover:bg-red-700">
                         Deactivate
                       </button>
                       <button
                         onClick={() => openEditModal(plan)}
-                        className="px-4 py-2 bg-orange-600 text-white font-medium rounded-md hover:bg-orange-700 transition flex items-center gap-1"
+                        className="flex items-center gap-1 px-4 py-2 font-medium text-white transition bg-orange-600 rounded-md hover:bg-orange-700"
                       >
                         <Edit className="w-4 h-4" />
                         Edit
