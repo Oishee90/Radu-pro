@@ -1,28 +1,73 @@
-import { useState, useRef } from "react";
+// src/components/settings/TermsCondition.jsx
+import React, { useState, useRef } from "react";
 import JoditEditor from "jodit-react";
-import { GrUpdate } from "react-icons/gr";
+import { Bold, Italic, Underline, List, AlignLeft } from "lucide-react";
 import Swal from "sweetalert2";
 const TermsCondition = () => {
+  const editor = useRef(null);
   const [content, setContent] = useState(`
-    <h3 class="paragraph">When do we collect information?</h3>
-    <p class="description">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum.</p>
+    <h3 style="font-size: 1.125rem; font-weight: 600; color: #242424; margin: 1.5rem 0 0.5rem 0;">Clause 1</h3>
+    <p style="color: #767676; line-height: 1.6; margin-bottom: 1.5rem;">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus condimentum eget purus in. 
+      Consectetur eget id morbi amet amet, in. Ipsum viverra pretium tellus neque. Ullamcorper 
+      suspendisse aenean leo pharetra in sit semper et. Amet quam placerat sem.
+    </p>
+
+    <h3 style="font-size: 1.125rem; font-weight: 600; color: #242424; margin: 1.5rem 0 0.5rem 0;">Clause 2</h3>
+    <p style="color: #767676; line-height: 1.6; margin-bottom: 1rem;">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus condimentum eget purus in. 
+      Consectetur eget id morbi amet amet, in. Ipsum viverra pretium tellus neque. Ullamcorper 
+      suspendisse aenean leo pharetra in sit semper et. Amet quam placerat sem.
+    </p>
+    <p style="color: #767676; line-height: 1.6;">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus condimentum eget purus in. 
+      Consectetur eget id morbi amet amet, in. Ipsum viverra pretium tellus neque. Ullamcorper 
+      suspendisse aenean leo pharetra in sit semper et. Amet quam placerat sem.
+    </p>
   `);
 
-  const editor = useRef(null);
+  // Jodit config: only show B, I, U, List, Align Left
   const config = {
-    toolbar: {
-      items: [
-        "bold",
-        "italic",
-        "underline",
-        "align",
-        "left",
-        "center",
-        "right",
-      ],
+    readonly: false,
+    toolbar: true,
+    spellcheck: false,
+    showCharsCounter: false,
+    showWordsCounter: false,
+    showXPathInStatusbar: false,
+    buttons: "bold,italic,underline,|,ul,|,align",
+    buttonsMD: "bold,italic,underline,|,ul,|,align",
+    buttonsSM: "bold,italic,underline,|,ul,|,align",
+    buttonsXS: "bold,italic,underline,|,ul,|,align",
+    removeButtons: [
+      "strikethrough",
+      "eraser",
+      "font",
+      "fontsize",
+      "brush",
+      "paragraph",
+      "image",
+      "video",
+      "table",
+      "link",
+      "hr",
+      "indent",
+      "outdent",
+      "superscript",
+      "subscript",
+      "copyformat",
+      "fullsize",
+      "preview",
+      "print",
+      "about",
+    ],
+    toolbarAdaptive: false,
+    height: "auto",
+    minHeight: 300,
+    style: {
+      font: "14px/1.6 'Helvetica Neue', Arial, sans-serif",
+      color: "#767676",
     },
-    // Optional: Disable other features if necessary
-    buttons: ["bold", "italic", "underline", "left", "center", "right"],
+    placeholder: "",
   };
   const handleUpdate = () => {
     Swal.fire({
@@ -32,28 +77,28 @@ const TermsCondition = () => {
       confirmButtonColor: "#009038",
     });
   };
+
   return (
-    <div className="h-full bg-white0 p-5">
-      <div className="w-full  p-6 ">
-        <h2 className=" font-bold mb-4 text-[#242424] text-3xl roboto">
-          Terms And Condition
-        </h2>
-        <div className=" p-5 rounded-md mt-9">
-          <JoditEditor
-            ref={editor}
-            value={content}
-            onChange={(newContent) => setContent(newContent)}
-            config={config} // Apply the custom config
-          />
-        </div>
-        <div
-          onClick={handleUpdate}
-          className="cursor-pointer mt-6 px-4"
-        >
-          <button className="px-3 py-2 flex items-center gap-3 poppins font-medium rounded-xl bg-[#009038] text-white cursor-pointer ">
-            <GrUpdate /> Update
-          </button>
-        </div>
+    <div className="p-6 bg-white rounded-lg">
+      {/* Toolbar + Edit Button */}
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-gray-900 inter">
+          Terms & Conditions
+        </h1>
+        <button className="px-4 py-2 bg-[#DF951F] hover:bg-[#c67a10] text-white text-sm font-medium rounded-lg transition">
+          Edit
+        </button>
+      </div>
+
+      {/* Jodit Editor */}
+      <div className="overflow-hidden border border-gray-200 rounded-lg">
+        <JoditEditor
+          ref={editor}
+          value={content}
+          config={config}
+          onBlur={(newContent) => setContent(newContent)}
+          className="jodit-editor-custom"
+        />
       </div>
     </div>
   );

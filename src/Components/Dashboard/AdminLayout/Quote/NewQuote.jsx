@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CustomDropdown from "./CustomDropdown";
 import { X } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
 const NewQuote = () => {
   const [file, setFile] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
@@ -175,9 +176,9 @@ const NewQuote = () => {
 
         {/* Footer Buttons */}
         <div className="flex justify-end mt-8 space-x-3">
-          <button className="px-5 py-2 text-gray-700 transition border border-[#E5E7EB] rounded-md hover:bg-gray-100">
+         <Link to="/quote-packs"><button className="px-5 py-2 text-gray-700 transition border border-[#E5E7EB] rounded-md hover:bg-gray-100">
             Cancel
-          </button>
+          </button></Link> 
           <button
             onClick={handleCreatePack}
             className="px-5 py-2 text-white transition rounded-md orange hover:bg-amber-600"

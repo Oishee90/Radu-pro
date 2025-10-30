@@ -16,8 +16,14 @@ import ContentModeration from "./Components/Dashboard/AdminLayout/ContentModerat
 import QuotePack from "./Components/Dashboard/AdminLayout/Quote/QuotePack";
 import NewQuote from "./Components/Dashboard/AdminLayout/Quote/NewQuote";
 import EditPack from "./Components/Dashboard/AdminLayout/Quote/EditPack";
+<<<<<<< HEAD
 import Payment from "./Components/Dashboard/AdminLayout/payment/Payment";
 import SubscriptionPlans from "./Components/Dashboard/AdminLayout/subscription/SubscriptionPlans";
+=======
+import UserManagementTable from "./Components/Dashboard/AdminLayout/UserManagementTable";
+import UserFeedbackTable from "./Components/Dashboard/AdminLayout/UserFeedbackTable";
+import Settings from "./Components/Dashboard/AdminLayout/Settings/Settings";
+>>>>>>> fbe5fc7e143b885d15d83e8e422c604a919d92b8
 
 const router = createBrowserRouter([
   {
@@ -61,8 +67,16 @@ const router = createBrowserRouter([
         element: <NewQuote></NewQuote>,
       },
       {
-        path: "/privacy",
-        element: <Privacy></Privacy>,
+        path: "/user-management",
+        element: <UserManagementTable></UserManagementTable>,
+      },
+      {
+        path: "/user-feedback",
+        element: <UserFeedbackTable></UserFeedbackTable>,
+      },
+      {
+        path: "/settings",
+        element: <Settings></Settings>,
       },
       {
         path: "/terms",
