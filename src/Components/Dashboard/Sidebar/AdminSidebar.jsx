@@ -17,15 +17,17 @@ const AdminSidebar = ({ collapsed }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
- const isActiveDashboard = location.pathname === "/";
-const isActiveContent = location.pathname.startsWith("/content-moderation");
-const isActiveQuote =
-  location.pathname.startsWith("/quote-packs") ||
-  location.pathname.startsWith("/edit-pack") ||
-  location.pathname.startsWith("/new-quote");
+  const isActiveDashboard = location.pathname === "/";
+  const isActiveContent = location.pathname.startsWith("/content-moderation");
+  const isActiveQuote =
+    location.pathname.startsWith("/quote-packs") ||
+    location.pathname.startsWith("/edit-pack") ||
+    location.pathname.startsWith("/new-quote");
 
-const isActiveUserManagement = location.pathname.startsWith("/user-management");
-const isActiveUserFeedback = location.pathname.startsWith("/user-feedback");
+  const isActiveUserManagement =
+    location.pathname.startsWith("/user-management");
+  const isActiveUserFeedback = location.pathname.startsWith("/user-feedback");
+  const isActiveSettings = location.pathname.startsWith("/settings");
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     navigate("/login", { replace: true });
@@ -198,11 +200,9 @@ const isActiveUserFeedback = location.pathname.startsWith("/user-feedback");
             <div className="flex items-center justify-between w-[280px] font-medium pb-3">
               <div
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
-                  collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
+                  collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px] "
                 } ${
-                  isActiveQuote
-                    ? "orange text-[#FAF1E6] rounded-xl"
-                    : "base-color"
+                  isActiveSettings ? "orange text-[#FAF1E6] " : "base-color"
                 }`}
               >
                 <IoSettingsOutline className="w-[24px] h-[24px]" />
