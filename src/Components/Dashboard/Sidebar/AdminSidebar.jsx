@@ -1,169 +1,244 @@
 import { FaSignOutAlt } from "react-icons/fa";
-import { MdDashboard } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { FiUserPlus } from "react-icons/fi";
-import { MdElectricBolt } from "react-icons/md";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import { FiHome } from "react-icons/fi";
+import { PiStudentBold } from "react-icons/pi";
+import { BiRevision } from "react-icons/bi";
+import { FaRegCalendarCheck } from "react-icons/fa";
+import { GrResources } from "react-icons/gr";
+import logo from "../../../assets/logo.png";
+import { GoPeople } from "react-icons/go";
+import { MdCheckCircleOutline } from "react-icons/md";
+import { MdOutlinePayment } from "react-icons/md";
+import { BsBoxSeam } from "react-icons/bs";
+import { MdOutlineFeedback } from "react-icons/md";
+import { MdOutlineSubscriptions } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
-import { useEffect, useRef, useState } from "react";
-import { PiShoppingBagOpen } from "react-icons/pi";
-import { TbCalendarQuestion } from "react-icons/tb";
-import { FaUsers } from "react-icons/fa";
-import { RiMoneyDollarCircleLine } from "react-icons/ri";
-import { FiSettings } from "react-icons/fi";
-import { SlHome } from "react-icons/sl";
-import logo from "../../../assets/dashboard-logo.png";
-
-const AdminSidebar = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isSeetingsDropdownOpen, setSeetingsDropdownOpen] = useState(false);
+const AdminSidebar = ({ collapsed }) => {
   const navigate = useNavigate();
-  // console.log(user);
-  const dropdownRef = useRef(null);
+  const location = useLocation();
 
-  const isActiveDashboard = location.pathname === "/";
+  const isActiveDashboard =
+    location.pathname.startsWith("/") ||
+    location.pathname.startsWith("/dashboard/theme");
+  const isActiveAllLesson = location.pathname.startsWith(
+    "/dashboard/all-lesson-plan"
+  );
+  const isActiveStudent =
+    location.pathname.startsWith("/dashboard/student-management") ||
+    location.pathname.startsWith("/dashboard/observation") ||
+    location.pathname.startsWith("/dashboard/weekly-goal") ||
+    location.pathname.startsWith("/dashboard/progress") ||
+    location.pathname.startsWith("/dashboard/generate");
+  const isActiveRsource = location.pathname.startsWith("/dashboard/resource");
 
-  const isActiveSettings =
-    location.pathname.startsWith("/terms") ||
-    location.pathname.startsWith("/privacy");
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    // Add event listener for click outside
-    document.addEventListener("mousedown", handleClickOutside);
-
-    // Cleanup event listener on component unmount
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
   const handleLogout = () => {
-    localStorage.removeItem("accessToken"); // Remove token from localStorage
-    navigate("/login", { replace: true }); // Redirect to login page
+    localStorage.removeItem("accessToken");
+    navigate("/login", { replace: true });
   };
-  const toggleDropdownSettings = () => setSeetingsDropdownOpen((prev) => !prev);
+
   return (
-    <div className="bg-[#009038]  border-r-2  border-r-[#009038]  min-h-screen flex flex-col justify-between  open-sns">
-      {/* Logo Section */}
-      <div className="flex flex-col  py-4">
-        <div className="flex px-6 items-center justify-center  pb-4">
-          <img src={logo} alt="Logo" />
-        </div>
+    <div className="bg-[#FFFFFF] border-r-2 border-r-[#ced1d6] min-h-screen flex flex-col justify-between outfit">
+      {/* Logo */}
+      <div className="flex flex-col py-4">
+        <Link to="/">
+          <div
+            className={`flex items-center gap-2  pt-2 pb-4 cursor-pointer ${
+              collapsed ? "px-0" : "px-6 "
+            }`}
+          >
+            <img src={logo} alt="Logo" className="mb-2" />
+          </div>
+        </Link>
+
         {/* Menu Items */}
-        <nav className="flex flex-col  text-[#364636]">
+        <nav className="flex flex-col text-[#364636]">
+          {/* Lesson Plan */}
           <NavLink
             to="/"
             className="flex items-center justify-between w-[280px]"
           >
-            <div className="flex items-center justify-between w-[280px] font-semibold  p-2 pt-15">
-              {/* Left Indicator Bar */}
-
-              {/* Main Button Area */}
+            <div className="flex items-center justify-between w-[280px] font-medium   pb-3 pt-7">
               <div
-                className={`flex items-center space-x-2 justify-start gap-2 w-[250px] h-[50px]  p-5 text-centfer
-                  ${
-                    isActiveDashboard
-                      ? "bg-white text-[#282828] rounded-xl"
-                      : "text-white"
-                  }`}
+                className={`flex items-center space-x-2 justify-start gap-2  p-5 text-center ${
+                  collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px] "
+                }  ${isActiveDashboard ? "orange text-white " : "base-color"}`}
               >
-                <SlHome className="w-[18px] h-[18px] font-semibold   " />{" "}
-                <h1 className="poppins font-semibold   text-base">Home</h1>
+                <FiHome className="w-[24px] h-[24px] " />
+                {!collapsed && (
+                  <h1 className="text-[20px] font-medium ">Dashboard</h1>
+                )}
               </div>
             </div>
           </NavLink>
 
-          <div className="flex items-center justify-between w-[280px] font-semibold cursor-pointer p-2 pt-15">
-            {/* Main Button Area */}
-            <div
-              onClick={toggleDropdownSettings}
-              className={`flex  relative items-center space-x-2 justify-start w-[250px] h-[50px] p-5  gap-2
-                    ${
-                      isActiveSettings
-                        ? "bg-white text-[#282828] rounded-xl"
-                        : "text-white"
-                    }`}
-            >
-              <IoSettingsOutline className="w-[18px] h-[18px] " />
-              <h1 className="text-[16px] font-[500] whitespace-nowrap">
-                Settings
-              </h1>
-              {isSeetingsDropdownOpen ? (
-                <FaChevronUp
-                  className={` dark:text-white w-[20px] h-[15px]   ${
-                    isActiveSettings ? " text-[#348b28]" : "text-white"
-                  } `}
-                />
-              ) : (
-                <FaChevronDown
-                  className={` dark:text-white w-[20px] h-[15px]   ${
-                    isActiveSettings ? "text-[#348b28]" : "text-white"
-                  } `}
-                />
-              )}
-              {isSeetingsDropdownOpen && (
-                <ul className="absolute left-[-3%] top-[94%]  mt-1 w-full bg-[#FAF1E6] border border-gray-300 shadow-lg z-10 text-center rounded-xl">
-                  {/* <li>
-                    <NavLink
-                      to="/profile"
-                      className={({ isActiveo }) =>
-                        `block py-2 text-gray-700 ${
-                          isActiveo
-                            ? "bg-[#CBD9CC] "
-                            : "hover:bg-[#8CAB91] bg-white text-black hover:text-[#FAF1E6]"
-                        }`
-                      }
-                    >
-                      Profile
-                    </NavLink>
-                  </li> */}
-                  <li>
-                    <NavLink
-                      to="/privacy"
-                      className={({ isActive }) =>
-                        `block py-2 text-gray-700  ${
-                          isActive
-                            ? "bg-[#72BE20] text-white "
-                            : "hover:bg-[#9bc273] bg-white text-black hover:text-[#FAF1E6]"
-                        }`
-                      }
-                    >
-                      Privacy And Policy
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/terms"
-                      className={({ isActive }) =>
-                        `block py-2 text-gray-700 ${
-                          isActive
-                            ? "bg-[#72BE20] text-white "
-                            : "hover:bg-[#9bc273] bg-white text-black hover:text-[#FAF1E6]"
-                        }`
-                      }
-                    >
-                      Terms And Condition
-                    </NavLink>
-                  </li>
-                </ul>
-              )}
+          {/*   User Management */}
+          <NavLink
+            to="/user-management"
+            className="flex items-center justify-between w-[280px]"
+          >
+            <div className="flex items-center justify-between w-[280px] font-medium pb-3  ">
+              <div
+                className={`flex items-center space-x-2 justify-start gap-2  p-5 text-center ${
+                  collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
+                } ${
+                  isActiveAllLesson
+                    ? "orange text-[#FAF1E6] rounded-xl"
+                    : "base-color"
+                }`}
+              >
+                <GoPeople className="w-[24px] h-[24px] montserrat" />
+                {!collapsed && (
+                  <h1 className="text-[20px] font-medium ">User Management</h1>
+                )}
+              </div>
             </div>
-          </div>
+          </NavLink>
+
+          {/*  Content Moderation */}
+          <NavLink
+            to="/content-moderation"
+            className="flex items-center justify-between w-[280px]"
+          >
+            <div className="flex items-center justify-between w-[280px] font-medium pb-3 ">
+              <div
+                className={`flex items-center space-x-2 justify-start gap-2  p-5 text-center ${
+                  collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
+                } ${
+                  isActiveStudent
+                    ? "orange text-[#FAF1E6] rounded-xl"
+                    : "base-color"
+                }`}
+              >
+                <MdCheckCircleOutline className="w-[24px] h-[24px] montserrat" />
+                {!collapsed && (
+                  <h1 className="text-[18px] font-medium ">
+                    Content Moderation
+                  </h1>
+                )}
+              </div>
+            </div>
+          </NavLink>
+
+          {/* Quote Packs */}
+          <NavLink
+            to="/quote-packs"
+            className="flex items-center justify-between w-[280px]"
+          >
+            <div className="flex items-center justify-between w-[280px] font-medium pb-3 ">
+              <div
+                className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
+                  collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
+                } ${
+                  isActiveRsource
+                    ? "orange text-[#FAF1E6] rounded-xl"
+                    : "base-color"
+                }`}
+              >
+                <BsBoxSeam className="w-[24px] h-[24px]" />
+                {!collapsed && (
+                  <h1 className="text-[20px] font-medium ">Quote Packs</h1>
+                )}
+              </div>
+            </div>
+          </NavLink>
+          {/* User Feedback */}
+          <NavLink
+            to="/user-feedback"
+            className="flex items-center justify-between w-[280px]"
+          >
+            <div className="flex items-center justify-between w-[280px] font-medium pb-3 ">
+              <div
+                className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
+                  collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
+                } ${
+                  isActiveRsource
+                    ? "orange text-[#FAF1E6] rounded-xl"
+                    : "base-color"
+                }`}
+              >
+                <MdOutlineFeedback className="w-[24px] h-[24px]" />
+                {!collapsed && (
+                  <h1 className="text-[20px] font-medium ">User Feedback</h1>
+                )}
+              </div>
+            </div>
+          </NavLink>
+          {/* Payments */}
+          <NavLink
+            to="/payments"
+            className="flex items-center justify-between w-[280px]"
+          >
+            <div className="flex items-center justify-between w-[280px] font-medium pb-3">
+              <div
+                className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
+                  collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
+                } ${
+                  isActiveRsource
+                    ? "orange text-[#FAF1E6] rounded-xl"
+                    : "base-color"
+                }`}
+              >
+                <MdOutlinePayment className="w-[24px] h-[24px]" />
+                {!collapsed && (
+                  <h1 className="text-[20px] font-medium ">Payments</h1>
+                )}
+              </div>
+            </div>
+          </NavLink>
+          {/* Subscriptions */}
+          <NavLink
+            to="/subscriptions"
+            className="flex items-center justify-between w-[280px]"
+          >
+            <div className="flex items-center justify-between w-[280px] font-medium pb-3">
+              <div
+                className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
+                  collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
+                } ${
+                  isActiveRsource
+                    ? "orange text-[#FAF1E6] rounded-xl"
+                    : "base-color"
+                }`}
+              >
+                <MdOutlineSubscriptions className="w-[24px] h-[24px]" />
+                {!collapsed && (
+                  <h1 className="text-[20px] font-medium ">Subscriptions</h1>
+                )}
+              </div>
+            </div>
+          </NavLink>
+          {/* Settings */}
+          <NavLink
+            to="/settings"
+            className="flex items-center justify-between w-[280px]"
+          >
+            <div className="flex items-center justify-between w-[280px] font-medium pb-3">
+              <div
+                className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
+                  collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
+                } ${
+                  isActiveRsource
+                    ? "orange text-[#FAF1E6] rounded-xl"
+                    : "base-color"
+                }`}
+              >
+                <IoSettingsOutline className="w-[24px] h-[24px]" />
+                {!collapsed && (
+                  <h1 className="text-[20px] font-medium ">Settings</h1>
+                )}
+              </div>
+            </div>
+          </NavLink>
         </nav>
       </div>
 
       {/* Logout */}
       <div
         onClick={handleLogout}
-        className="flex items-center space-x-3 p-2 text-white cursor-pointer rounded-lg pb-10 pl-10"
+        className="flex items-center p-2 pb-10 pl-10 space-x-3 text-red-600 rounded-lg cursor-pointer"
       >
         <FaSignOutAlt />
-        <span>Log Out</span>
+        {!collapsed && <span>Log Out</span>}
       </div>
     </div>
   );
