@@ -1,0 +1,291 @@
+// src/components/SubscriptionPlans.jsx
+import { useState } from "react";
+import { Check, Edit, Plus } from "lucide-react";
+import PlanModal from "./PlanModal";
+
+const plans = [
+  {
+    id: 1,
+    name: "Free Plan",
+    description: "Basic access with limited features",
+    price: 0,
+    billingCycle: "N/A (Free)",
+    isDefault: true,
+    features: [
+      {
+        title: "1. App Store Optimization (ASO)",
+        items: [
+          "Monitor download numbers daily",
+          "Respond to any initial reviews (positive/negative)",
+          "Update screenshots based on early user feedback",
+        ],
+      },
+      {
+        title: "2. Initial User Support",
+        items: [
+          "Set up a simple support email (e.g., Gmail)",
+          "Create a FAQ section in-app for common issues",
+        ],
+      },
+      {
+        title: "3. Basic Analytics",
+        items: [
+          "Track daily active users (Firebase Analytics)",
+          "Monitor App usage (crash reports)",
+          "Identify crash reports (Firebase Crashlytics)",
+        ],
+      },
+    ],
+    status: "active",
+  },
+  {
+    id: 2,
+    name: "Premium Monthly",
+    description: "Full access with all premium features",
+    price: 4.99,
+    billingCycle: "monthly",
+    isDefault: true,
+    features: [
+      {
+        title: "1. Marketing Basics",
+        items: [
+          "Share on social media (Twitter, LinkedIn, Reddit, TikTok)",
+          "Tell friends/family to download and review",
+          "Submit to app review sites (Product Hunt, AppAdvice)",
+        ],
+      },
+      {
+        title: "2. Gather Feedback",
+        items: [
+          "Monitor user behavior patterns",
+          'In-app feedback button ("How can we improve?")',
+          "Identify most-used features",
+        ],
+      },
+      {
+        title: "3. Cost Management",
+        items: [
+          "Track daily active users (Firebase Analytics)",
+          "Set budget alerts for OpenAI API ($10/20/month warning)",
+          "Monitor Firebase usage to stay in free tier",
+        ],
+      },
+    ],
+    status: "deactivate",
+  },
+  {
+    id: 3,
+    name: "Free Plan",
+    description: "Basic access with limited features",
+    price: 0,
+    billingCycle: "N/A (Free)",
+    isDefault: true,
+    features: [
+      {
+        title: "1. App Store Optimization (ASO)",
+        items: [
+          "Monitor download numbers daily",
+          "Respond to any initial reviews (positive/negative)",
+          "Update screenshots based on early user feedback",
+        ],
+      },
+      {
+        title: "2. Initial User Support",
+        items: [
+          "Set up a simple support email (e.g., Gmail)",
+          "Create a FAQ section in-app for common issues",
+        ],
+      },
+      {
+        title: "3. Basic Analytics",
+        items: [
+          "Track daily active users (Firebase Analytics)",
+          "Monitor App usage (crash reports)",
+          "Identify crash reports (Firebase Crashlytics)",
+        ],
+      },
+    ],
+    status: "active",
+  },
+  {
+    id: 4,
+    name: "Premium Monthly",
+    description: "Full access with all premium features",
+    price: 4.99,
+    billingCycle: "monthly",
+    isDefault: true,
+    features: [
+      {
+        title: "1. Marketing Basics",
+        items: [
+          "Share on social media (Twitter, LinkedIn, Reddit, TikTok)",
+          "Tell friends/family to download and review",
+          "Submit to app review sites (Product Hunt, AppAdvice)",
+        ],
+      },
+      {
+        title: "2. Gather Feedback",
+        items: [
+          "Monitor user behavior patterns",
+          'In-app feedback button ("How can we improve?")',
+          "Identify most-used features",
+        ],
+      },
+      {
+        title: "3. Cost Management",
+        items: [
+          "Track daily active users (Firebase Analytics)",
+          "Set budget alerts for OpenAI API ($10/20/month warning)",
+          "Monitor Firebase usage to stay in free tier",
+        ],
+      },
+    ],
+    status: "active",
+  },
+];
+
+const SubscriptionPlans = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null); // null = create, object = edit
+
+  const openCreateModal = () => {
+    setSelectedPlan(null);
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (plan) => {
+    setSelectedPlan(plan);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedPlan(null);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <div className="px-6 py-6 max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Subscriptions</h1>
+          <button
+            onClick={openCreateModal}
+            className="px-4 py-2 bg-orange-600 text-white font-medium rounded-md hover:bg-orange-700 transition flex items-center gap-2"
+          >
+            <Plus className="w-5 h-5" />
+            Create New Plan
+          </button>
+        </div>
+
+        {/* Plans Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {plans.map((plan) => (
+            <div
+              key={plan.id}
+              className="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col h-full"
+            >
+              {/* Card Content - grows to fill space */}
+              <div className="p-6 flex-1 flex flex-col">
+                {/* Header */}
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <h2 className="text-xl font-semibold text-gray-900">
+                      {plan.name}
+                    </h2>
+                    <p className="text-sm text-gray-600">{plan.description}</p>
+                  </div>
+                  {plan.isDefault && (
+                    <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
+                      Default
+                    </span>
+                  )}
+                </div>
+
+                {/* Price */}
+                <div className="mb-6 flex justify-between items-center">
+                  <p className="text-lg font-bold text-gray-700">
+                    User Acquisition & Retention
+                  </p>
+                  <p className="text-3xl font-bold text-gray-900">
+                    ${plan.price}
+                    {plan.price > 0 && (
+                      <span className="text-sm font-normal text-gray-600">
+                        /{plan.billingCycle}
+                      </span>
+                    )}
+                  </p>
+                </div>
+
+                {/* Features - takes remaining space */}
+                <div className="flex-1 space-y-5">
+                  {plan.features.map((feat, idx) => (
+                    <div key={idx}>
+                      <h3 className="font-medium text-gray-900 flex items-center gap-2">
+                        {idx === 0 ? (
+                          <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center">
+                            <Check className="w-4 h-4 text-orange-600" />
+                          </div>
+                        ) : (
+                          <div className="w-4 h-4"></div>
+                        )}
+                        {feat.title}
+                      </h3>
+                      <ul className="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1 ml-7">
+                        {feat.items.map((item, i) => (
+                          <li key={i}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom Border + Buttons - always at bottom */}
+              <div className="border-t-2 border-gray-200 pt-4 px-6 pb-6">
+                <div className="flex justify-between items-center gap-3">
+                  {plan.status === "active" ? (
+                    <>
+                      <button className="px-4 py-2 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 transition">
+                        Activate
+                      </button>
+                      <button
+                        onClick={() => openEditModal(plan)}
+                        className="px-4 py-2 bg-orange-600 text-white font-medium rounded-md hover:bg-orange-700 transition flex items-center gap-1"
+                      >
+                        <Edit className="w-4 h-4" />
+                        Edit
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button className="px-4 py-2 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 transition">
+                        Deactivate
+                      </button>
+                      <button
+                        onClick={() => openEditModal(plan)}
+                        className="px-4 py-2 bg-orange-600 text-white font-medium rounded-md hover:bg-orange-700 transition flex items-center gap-1"
+                      >
+                        <Edit className="w-4 h-4" />
+                        Edit
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Modal */}
+        <PlanModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          plan={selectedPlan}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default SubscriptionPlans;
