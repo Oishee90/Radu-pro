@@ -16,6 +16,8 @@ import ContentModeration from "./Components/Dashboard/AdminLayout/ContentModerat
 import QuotePack from "./Components/Dashboard/AdminLayout/Quote/QuotePack";
 import NewQuote from "./Components/Dashboard/AdminLayout/Quote/NewQuote";
 import EditPack from "./Components/Dashboard/AdminLayout/Quote/EditPack";
+import Payment from "./Components/Dashboard/AdminLayout/payment/Payment";
+import SubscriptionPlans from "./Components/Dashboard/AdminLayout/subscription/SubscriptionPlans";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +67,14 @@ const router = createBrowserRouter([
       {
         path: "/terms",
         element: <TermsCondition></TermsCondition>,
+      },
+      {
+        path: "/payments",
+        element: <Payment></Payment>,
+      },
+      {
+        path: "/subscriptions",
+        element: <SubscriptionPlans></SubscriptionPlans>,
       },
     ],
   },
