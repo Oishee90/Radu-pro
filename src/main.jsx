@@ -12,6 +12,10 @@ import Verification from "./Components/Pages/Verification";
 import Setnew from "./Components/Pages/Setnew";
 import Privacy from "./Components/Dashboard/AdminLayout/Settings/Privacy";
 import TermsCondition from "./Components/Dashboard/AdminLayout/Settings/TermsCondition";
+import ContentModeration from "./Components/Dashboard/AdminLayout/ContentModeration";
+import QuotePack from "./Components/Dashboard/AdminLayout/Quote/QuotePack";
+import NewQuote from "./Components/Dashboard/AdminLayout/Quote/NewQuote";
+import EditPack from "./Components/Dashboard/AdminLayout/Quote/EditPack";
 
 const router = createBrowserRouter([
   {
@@ -31,12 +35,28 @@ const router = createBrowserRouter([
     element: <Setnew></Setnew>,
   },
   {
-    path: "/", 
+    path: "/",
     element: <Root></Root>,
     children: [
       {
         index: true,
         element: <AdminDashboard></AdminDashboard>,
+      },
+      {
+        path: "/content-moderation",
+        element: <ContentModeration></ContentModeration>,
+      },
+      {
+        path: "/quote-packs",
+        element: <QuotePack></QuotePack>,
+      },
+      {
+        path: "/edit-pack",
+        element: <EditPack></EditPack>,
+      },
+      {
+        path: "/new-quote",
+        element: <NewQuote></NewQuote>,
       },
       {
         path: "/privacy",

@@ -23,13 +23,8 @@ const AdminSidebar = ({ collapsed }) => {
   const isActiveAllLesson = location.pathname.startsWith(
     "/dashboard/all-lesson-plan"
   );
-  const isActiveStudent =
-    location.pathname.startsWith("/dashboard/student-management") ||
-    location.pathname.startsWith("/dashboard/observation") ||
-    location.pathname.startsWith("/dashboard/weekly-goal") ||
-    location.pathname.startsWith("/dashboard/progress") ||
-    location.pathname.startsWith("/dashboard/generate");
-  const isActiveRsource = location.pathname.startsWith("/dashboard/resource");
+  const isActiveContent = location.pathname.startsWith("/content-moderation");
+  const isActiveQuote = location.pathname.startsWith("/quote-packs");
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -79,12 +74,8 @@ const AdminSidebar = ({ collapsed }) => {
             <div className="flex items-center justify-between w-[280px] font-medium pb-3  ">
               <div
                 className={`flex items-center space-x-2 justify-start gap-2  p-5 text-center ${
-                  collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
-                } ${
-                  isActiveAllLesson
-                    ? "orange text-[#FAF1E6] rounded-xl"
-                    : "base-color"
-                }`}
+                  collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px] "
+                } ${isActiveAllLesson ? "orange text-white " : "base-color"}`}
               >
                 <GoPeople className="w-[24px] h-[24px] montserrat" />
                 {!collapsed && (
@@ -102,12 +93,8 @@ const AdminSidebar = ({ collapsed }) => {
             <div className="flex items-center justify-between w-[280px] font-medium pb-3 ">
               <div
                 className={`flex items-center space-x-2 justify-start gap-2  p-5 text-center ${
-                  collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
-                } ${
-                  isActiveStudent
-                    ? "orange text-[#FAF1E6] rounded-xl"
-                    : "base-color"
-                }`}
+                  collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px]"
+                } ${isActiveContent ? "orange text-white " : "base-color"}`}
               >
                 <MdCheckCircleOutline className="w-[24px] h-[24px] montserrat" />
                 {!collapsed && (
@@ -129,7 +116,7 @@ const AdminSidebar = ({ collapsed }) => {
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
                   collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
                 } ${
-                  isActiveRsource
+                  isActiveQuote
                     ? "orange text-[#FAF1E6] rounded-xl"
                     : "base-color"
                 }`}
@@ -151,7 +138,7 @@ const AdminSidebar = ({ collapsed }) => {
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
                   collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
                 } ${
-                  isActiveRsource
+                  isActiveQuote
                     ? "orange text-[#FAF1E6] rounded-xl"
                     : "base-color"
                 }`}
@@ -173,7 +160,7 @@ const AdminSidebar = ({ collapsed }) => {
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
                   collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
                 } ${
-                  isActiveRsource
+                  isActiveQuote
                     ? "orange text-[#FAF1E6] rounded-xl"
                     : "base-color"
                 }`}
@@ -195,7 +182,7 @@ const AdminSidebar = ({ collapsed }) => {
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
                   collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
                 } ${
-                  isActiveRsource
+                  isActiveQuote
                     ? "orange text-[#FAF1E6] rounded-xl"
                     : "base-color"
                 }`}
@@ -217,7 +204,7 @@ const AdminSidebar = ({ collapsed }) => {
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
                   collapsed ? "w-[63px] h-[40px]" : "w-[250px] h-[50px] "
                 } ${
-                  isActiveRsource
+                  isActiveQuote
                     ? "orange text-[#FAF1E6] rounded-xl"
                     : "base-color"
                 }`}

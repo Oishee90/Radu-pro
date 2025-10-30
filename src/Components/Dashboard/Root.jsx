@@ -72,7 +72,7 @@ const Root = () => {
         className={`flex-1 flex flex-col transition-all duration-300 ${mainContentClass}`}
       >
         <MainHeader />
-        <main className="flex-1 p-4 overflow-y-auto bg-white">
+        <main className="flex-1 p-4 overflow-y-auto bg-[#fbf9f7]">
           <Outlet />
         </main>
       </div>
