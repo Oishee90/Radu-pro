@@ -14,7 +14,7 @@ const Root = () => {
   const mainContentClass = collapsed ? "lg:ml-[80px]" : "lg:ml-[270px]";
 
   return (
-    <div className="relative flex h-screen bg-white">
+    <div className="relative flex h-screen overflow-hidden bg-white">
       {/* Mobile hamburger */}
       <button
         className="absolute top-4 left-4 z-50 lg:hidden text-2xl text-[#1E3A8A]"
@@ -49,7 +49,7 @@ const Root = () => {
       {/* Mobile Drawer */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 flex">
-          <div className="bg-white w-[270px] h-full border border-[#E8E8E8] p-0 relative">
+          <div className="bg-white w-[270px] h-full border border-[#E8E8E8] p-0 relative overflow-hidden">
             <button
               className="absolute top-4 right-4 text-2xl text-[#1E3A8A]"
               onClick={() => setMobileOpen(false)}
@@ -69,10 +69,10 @@ const Root = () => {
 
       {/* Main Content */}
       <div
-        className={`flex-1 flex flex-col transition-all duration-300 ${mainContentClass}`}
+        className={`flex-1  w-screen flex flex-col transition-all duration-300 ${mainContentClass}`}
       >
         <MainHeader />
-        <main className="flex-1 p-4 overflow-y-auto bg-[#fbf9f7]">
+        <main className="flex-1 p-4 user overflow-y-auto bg-[#fbf9f7]">
           <Outlet />
         </main>
       </div>

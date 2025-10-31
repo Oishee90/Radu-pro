@@ -1,44 +1,42 @@
 const PaymentSettings = () => {
   return (
-    <div className="p-6 grid grid-cols-1 lg:grid-cols-2 gap-8 outfit">
+    <div className="grid grid-cols-1 gap-8 p-6 lg:grid-cols-2 outfit">
       {/* Payment Gateway */}
       <div>
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Payment Gateway</h2>
+        <h2 className="mb-4 text-lg font-semibold text-gray-900">
+          Payment Gateway
+        </h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block mb-1 text-sm font-medium text-gray-700">
               Payment Provider
             </label>
-            <div className="w-full px-4 py-2 border border-gray-300 rounded-md text-gray-900 text-center">
+            <div className="w-full px-4 py-2 text-center text-gray-900 border border-gray-300 rounded-md">
               Stripe
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block mb-1 text-sm font-medium text-gray-700">
               API Key
             </label>
             <input
               type="password"
-              value="••••••••••••••••••••••••••••••••"
-              readOnly
               className="w-full px-4 py-2 border border-gray-300 rounded-md"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block mb-1 text-sm font-medium text-gray-700">
               Webhook Secret
             </label>
             <input
               type="password"
-              value="••••••••••••••••••••••••••••••••"
-              readOnly
               className="w-full px-4 py-2 border border-gray-300 rounded-md"
             />
           </div>
 
-          <button className="mt-6 px-6 py-2 orange text-white font-medium rounded-md transition">
+          <button className="px-6 py-2 mt-6 font-medium text-white transition rounded-md orange">
             Save Changes
           </button>
         </div>
@@ -46,15 +44,25 @@ const PaymentSettings = () => {
 
       {/* Subscription Settings */}
       <div>
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Subscription Settings</h2>
+        <h2 className="mb-4 text-lg font-semibold text-gray-900">
+          Subscription Settings
+        </h2>
         <div className="space-y-4">
           <label className="flex items-center space-x-3">
-            <input type="checkbox" defaultChecked className="w-4 h-4 text-orange-600 rounded" />
-            <span className="text-sm text-gray-700">Enable free trial period</span>
+            <input
+              type="checkbox"
+              defaultChecked
+              className="w-4 h-4 text-orange-600 rounded"
+            />
+            <span className="text-sm text-gray-700">
+              Enable free trial period
+            </span>
           </label>
 
           <div className="flex items-center space-x-3">
-            <label className="text-sm text-gray-700 w-32">Trial duration:</label>
+            <label className="w-32 text-sm text-gray-700">
+              Trial duration:
+            </label>
             <input
               type="number"
               defaultValue={7}
@@ -64,17 +72,29 @@ const PaymentSettings = () => {
           </div>
 
           <label className="flex items-center space-x-3">
-            <input type="checkbox" defaultChecked className="w-4 h-4 text-orange-600 rounded" />
-            <span className="text-sm text-gray-700">Auto-renew subscriptions by default</span>
+            <input
+              type="checkbox"
+              defaultChecked
+              className="w-4 h-4 text-orange-600 rounded"
+            />
+            <span className="text-sm text-gray-700">
+              Auto-renew subscriptions by default
+            </span>
           </label>
 
           <label className="flex items-center space-x-3">
-            <input type="checkbox" defaultChecked className="w-4 h-4 text-orange-600 rounded" />
-            <span className="text-sm text-gray-700">Allow users to cancel anytime</span>
+            <input
+              type="checkbox"
+              defaultChecked
+              className="w-4 h-4 text-orange-600 rounded"
+            />
+            <span className="text-sm text-gray-700">
+              Allow users to cancel anytime
+            </span>
           </label>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block mb-1 text-sm font-medium text-gray-700">
               Default Plan for New Users
             </label>
             <select className="w-full px-4 py-2 border border-gray-300 rounded-md">
@@ -84,7 +104,7 @@ const PaymentSettings = () => {
             </select>
           </div>
 
-          <button className="mt-6 px-6 py-2 orange text-white font-medium rounded-md transition">
+          <button className="px-6 py-2 mt-6 font-medium text-white transition rounded-md orange">
             Save Changes
           </button>
         </div>

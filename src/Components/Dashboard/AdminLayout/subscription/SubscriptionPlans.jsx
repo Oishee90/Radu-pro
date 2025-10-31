@@ -167,7 +167,7 @@ const SubscriptionPlans = () => {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="px-6 py-6 ">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col items-start justify-between gap-6 mb-8 lg:flex-row lg:items-center">
           <h1 className="text-3xl font-bold text-gray-900">Subscriptions</h1>
           <button
             onClick={openCreateModal}

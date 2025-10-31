@@ -110,7 +110,6 @@ export default function UserManagementTable() {
           )
         );
 
-        // Update modal user if open
         if (selectedUser && selectedUser.id === user.id) {
           setSelectedUser({
             ...selectedUser,
@@ -132,17 +131,18 @@ export default function UserManagementTable() {
     const matchesSearch =
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesStatus =
       statusFilter === "All" || user.status === statusFilter;
+
     return matchesSearch && matchesStatus;
   });
 
   return (
     <>
       <div className="min-h-screen p-6 outfit">
-        <div className="">
-          {/* Header */}
-          <h1 className="mb-6 text-2xl font-bold text-[#1F2937] outfit">
+        <div>
+          <h1 className="mb-6 text-2xl font-bold text-[#1F2937]">
             User Management
           </h1>
 
@@ -155,7 +155,7 @@ export default function UserManagementTable() {
                 placeholder="Search by name or email"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg text-sm"
               />
             </div>
 
@@ -167,127 +167,166 @@ export default function UserManagementTable() {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                className=" bg-white border border-gray-300 rounded-lg px-4 py-2.5 pr-10 text-sm cursor-pointer "
               >
                 <option>All</option>
                 <option>Active</option>
                 <option>Blocked</option>
               </select>
-              <ChevronDown className="absolute w-4 h-4 text-gray-400 transform -translate-y-1/2 pointer-events-none right-3 top-1/2" />
+
+              {/* <ChevronDown className="absolute w-4 h-4 text-gray-400 transform -translate-y-1/2 pointer-events-none lg:right-3 right-24 top-1/2" /> */}
             </div>
           </div>
 
-          {/* Table */}
-          <div className="overflow-hidden bg-white border border-gray-200 shadow-sm rounded-xl inter">
-            <div className="grid grid-cols-12 gap-4 px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase border-b border-gray-200 bg-gray-50">
-              <div className="col-span-3">User</div>
-              <div className="col-span-1 text-center">Status</div>
-              <div className="col-span-2 text-center">Joined Date</div>
-              <div className="col-span-2 text-center">Submissions</div>
-              <div className="col-span-2 text-center">Subscription</div>
-              <div className="col-span-2 text-center">Actions</div>
-            </div>
+          {/* Table - scroll-x on lg */}
+          <div className="hidden lg:block">
+            <div className="overflow-x-auto bg-white border border-gray-200 shadow-sm rounded-xl inter">
+              <div className="max-w-full">
+                <div className="grid grid-cols-12 gap-4 px-6 py-3 text-xs font-semibold tracking-wider text-gray-600 uppercase border-b border-gray-200 bg-gray-50">
+                  <div className="col-span-3">User</div>
+                  <div className="col-span-1 text-center">Status</div>
+                  <div className="col-span-2 text-center">Joined Date</div>
+                  <div className="col-span-2 text-center">Submissions</div>
+                  <div className="col-span-2 text-center">Subscription</div>
+                  <div className="col-span-2 text-center">Actions</div>
+                </div>
 
+                {filteredUsers.map((user) => (
+                  <div
+                    key={user.id}
+                    className="grid grid-cols-12 gap-4 px-6 py-4 transition-colors border-b border-gray-100 hover:bg-gray-50"
+                  >
+                    <div className="flex items-center col-span-3 gap-3">
+                      <div className="flex items-center justify-center w-10 h-10 text-sm font-semibold text-purple-700 bg-purple-100 rounded-full">
+                        {user.initial}
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">
+                          {user.name}
+                        </p>
+                        <p className="text-xs text-gray-500">{user.email}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-center col-span-1">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          user.status === "Active"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-red-100 text-red-700"
+                        }`}
+                      >
+                        {user.status}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-center col-span-2 text-sm text-gray-700">
+                      {user.joined}
+                    </div>
+
+                    <div className="flex items-center justify-center col-span-2 text-sm font-medium text-gray-700">
+                      {user.submissions}
+                    </div>
+
+                    <div className="flex items-center justify-center col-span-2">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          user.subscription === "Premium"
+                            ? "bg-blue-100 text-blue-700"
+                            : "bg-gray-100 text-gray-700"
+                        }`}
+                      >
+                        {user.subscription}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-center col-span-2 gap-3">
+                      <button
+                        onClick={() => openModal(user)}
+                        className="flex items-center justify-center p-2 text-[#DF951F]"
+                      >
+                        <FaEye className="w-5 h-5" />
+                      </button>
+
+                      <button
+                        onClick={() => handleBlockToggle(user)}
+                        className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${
+                          user.blocked
+                            ? "bg-[#EF4444] text-white"
+                            : "bg-[#22C55E] text-white"
+                        }`}
+                      >
+                        {user.blocked ? (
+                          <>
+                            <FiUserX className="w-4 h-4" /> Block
+                          </>
+                        ) : (
+                          <>
+                            <LuUserCheck className="w-4 h-4" /> Unblock
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Card layout for mobile & tablet */}
+          <div className="space-y-4 lg:hidden">
             {filteredUsers.map((user) => (
               <div
                 key={user.id}
-                className="grid grid-cols-12 gap-4 px-6 py-4 transition-colors border-b border-gray-100 hover:bg-gray-50 outfit"
+                className="p-4 bg-white border shadow-sm rounded-xl"
               >
-                {/* User */}
-                <div className="flex items-center col-span-3 gap-3">
-                  <div className="flex items-center justify-center w-10 h-10 text-sm font-semibold text-purple-700 bg-purple-100 rounded-full">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center justify-center w-12 h-12 text-lg font-semibold text-purple-700 bg-purple-100 rounded-full">
                     {user.initial}
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-900">
-                      {user.name}
-                    </p>
-                    <p className="text-xs text-gray-500">{user.email}</p>
+                    <p className="font-semibold text-gray-900">{user.name}</p>
+                    <p className="text-sm text-gray-500">{user.email}</p>
                   </div>
                 </div>
 
-                {/* Status */}
-                <div className="flex items-center justify-center col-span-1">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      user.status === "Active"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-red-100 text-red-700"
-                    }`}
-                  >
-                    {user.status}
-                  </span>
+                <div className="grid grid-cols-2 gap-3 text-sm text-gray-700">
+                  <p>Status: {user.status}</p>
+                  <p>Joined: {user.joined}</p>
+                  <p>Submissions: {user.submissions}</p>
+                  <p>Plan: {user.subscription}</p>
                 </div>
 
-                {/* Joined Date */}
-                <div className="flex items-center justify-center col-span-2 text-sm text-gray-700">
-                  {user.joined}
-                </div>
-
-                {/* Submissions */}
-                <div className="flex items-center justify-center col-span-2 text-sm font-medium text-gray-700">
-                  {user.submissions}
-                </div>
-
-                {/* Subscription */}
-                <div className="flex items-center justify-center col-span-2">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      user.subscription === "Premium"
-                        ? "bg-blue-100 text-blue-700"
-                        : "bg-gray-100 text-gray-700"
-                    }`}
-                  >
-                    {user.subscription}
-                  </span>
-                </div>
-
-                {/* Actions */}
-                <div className="flex items-center justify-center col-span-2 gap-3">
-                  {/* View Button */}
+                <div className="flex justify-between mt-4">
                   <button
                     onClick={() => openModal(user)}
-                    className="flex items-center justify-center p-2 text-[#DF951F] hover:text-orange-600 transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-[#DF951F]"
                   >
-                    <FaEye className="w-5 h-5" />
+                    View Details
                   </button>
 
-                  {/* Block/Unblock Button */}
                   <button
                     onClick={() => handleBlockToggle(user)}
-                    className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      user.blocked
-                        ? "bg-[#EF4444] text-white hover:bg-red-700"
-                        : "bg-[#22C55E] text-white hover:bg-green-700"
+                    className={`px-4 py-2 rounded-lg text-sm text-white font-medium ${
+                      user.blocked ? "bg-red-500" : "bg-green-600"
                     }`}
                   >
-                    {user.blocked ? (
-                      <>
-                        <FiUserX className="w-4 h-4" />
-                        Block
-                      </>
-                    ) : (
-                      <>
-                        <LuUserCheck className="w-4 h-4" />
-                        Unblock
-                      </>
-                    )}
+                    {user.blocked ? "Unblock" : "Block"}
                   </button>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Pagination */}
           <div className="flex items-center justify-between mt-6">
             <p className="text-sm text-gray-600">
               Showing {start}-{end} of {totalUsers} users
             </p>
             <div className="flex gap-2">
-              <button className="px-4 py-2 text-sm font-medium text-gray-600 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200">
+              <button className="px-4 py-2 text-sm font-medium bg-gray-100 rounded-lg">
                 Previous
               </button>
-              <button className="px-4 py-2 text-sm font-medium text-white transition-colors bg-orange-500 rounded-lg hover:bg-orange-600">
+              <button className="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg">
                 Next
               </button>
             </div>
@@ -295,20 +334,18 @@ export default function UserManagementTable() {
         </div>
       </div>
 
-      {/* === USER DETAILS MODAL === */}
+      {/* Modal */}
       {isModalOpen && selectedUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 inter">
           <div className="relative w-full max-w-md bg-white shadow-xl rounded-2xl">
-            {/* Close Button */}
             <button
               onClick={closeModal}
-              className="absolute text-gray-400 transition-colors top-4 right-4 hover:text-gray-600"
+              className="absolute text-gray-400 top-4 right-4 hover:text-gray-600"
             >
               <X className="w-6 h-6" />
             </button>
 
             <div className="p-6">
-              {/* Profile Header */}
               <div className="flex items-center gap-4 mb-6">
                 <div className="flex items-center justify-center w-16 h-16 text-xl font-bold text-white rounded-full bg-gradient-to-br from-purple-400 to-pink-400">
                   {selectedUser.initial}
@@ -322,40 +359,6 @@ export default function UserManagementTable() {
                 </div>
               </div>
 
-              {/* Status & Plan */}
-              <div className="flex gap-3 mb-6">
-                <div className="flex items-center gap-2">
-                  <div
-                    className={`w-2 h-2 bg-green-500 rounded-full ${
-                      selectedUser.status === "Blocked"
-                        ? "bg-red-700 "
-                        : "bg-green-700 "
-                    }`}
-                  ></div>
-                  <span
-                    className={`px-3 py-1 text-sm font-medium rounded-full ${
-                      selectedUser.status === "Blocked"
-                        ? "text-red-700 bg-red-100"
-                        : "text-green-700 bg-green-100"
-                    }`}
-                  >
-                    {selectedUser.status}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="flex items-center px-3 py-1 text-sm font-medium text-purple-700 bg-purple-100 rounded-full">
-                    <svg
-                      className="w-4 h-4 mr-1"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M10 2l3.09 6.26L19 8.27l-5 4.87 1.18 6.88L10 16.73l-6.18 3.25L5 13.14 0 8.27l5.91-.01L10 2z" />
-                    </svg>
-                    {selectedUser.subscription}
-                  </span>
-                </div>
-              </div>
-
               {/* Quick Actions */}
               <div className="mb-6">
                 <h3 className="mb-2 text-sm font-semibold text-gray-700">
@@ -363,23 +366,18 @@ export default function UserManagementTable() {
                 </h3>
                 <button
                   onClick={() => handleBlockToggle(selectedUser)}
-                  className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium ${
                     selectedUser.blocked
-                      ? "bg-green-100 text-green-500 hover:bg-green-200"
-                      : "bg-red-600 text-white hover:bg-red-700"
+                      ? "bg-green-100 text-green-600"
+                      : "bg-red-600 text-white"
                   }`}
                 >
                   {selectedUser.blocked ? (
-                    <>
-                      <Unlock className="w-4 h-4" />
-                      Unblock User
-                    </>
+                    <Unlock className="w-4 h-4" />
                   ) : (
-                    <>
-                      <Lock className="w-4 h-4" />
-                      Block User
-                    </>
+                    <Lock className="w-4 h-4" />
                   )}
+                  {selectedUser.blocked ? "Unblock User" : "Block User"}
                 </button>
               </div>
 
@@ -392,20 +390,7 @@ export default function UserManagementTable() {
                   <div className="flex justify-between">
                     <span className="text-gray-500">Member Since</span>
                     <span className="font-medium text-gray-900">
-                      {new Date(selectedUser.joined).toLocaleDateString(
-                        "en-US",
-                        {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        }
-                      )}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Last Login</span>
-                    <span className="font-medium text-gray-900">
-                      2 hours ago
+                      {selectedUser.joined}
                     </span>
                   </div>
                   <div className="flex justify-between">

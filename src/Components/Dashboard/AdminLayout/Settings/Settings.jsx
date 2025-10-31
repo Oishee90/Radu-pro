@@ -31,25 +31,25 @@ const Settings = () => {
 
           <button
             onClick={() => setActiveTab("terms")}
-            className={`flex items-center gap-2 pb-3 text-sm font-medium transition-colors inter ${
+            className={`flex items-center gap-2 pb-3 text-xs md:text-sm font-medium transition-colors inter ${
               activeTab === "terms"
                 ? "text-[#DF951F] border-b-2 border-[#DF951F]"
                 : "text-gray-500 hover:text-gray-700"
             }`}
           >
-            <FileText className="w-4 h-4" />
+            <FileText className="text-xl" />
             Terms And condition
           </button>
 
           <button
             onClick={() => setActiveTab("privacy")}
-            className={`flex items-center gap-2 pb-3 text-sm font-medium transition-colors inter ${
+            className={`flex items-center gap-2 pb-3 text-xs md:text-sm  font-medium transition-colors inter ${
               activeTab === "privacy"
                 ? "text-[#DF951F] border-b-2 border-[#DF951F]"
                 : "text-gray-500 hover:text-gray-700"
             }`}
           >
-            <Shield className="w-4 h-4" />
+            <Shield className="text-xl" />
             Privacy Policy
           </button>
         </div>

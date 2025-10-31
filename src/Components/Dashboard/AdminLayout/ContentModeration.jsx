@@ -157,7 +157,7 @@ export default function ContentModeration() {
   return (
     <div className="min-h-screen p-4 outfit">
       <div className="">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col items-start justify-between gap-6 mb-6 lg:items-center lg:flex-row">
           <h1 className="text-2xl font-semibold text-gray-900">
             Content Moderation
           </h1>

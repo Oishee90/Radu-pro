@@ -77,7 +77,7 @@ const QuotePack = () => {
         </h1>
 
         {/* Tabs and Create Button */}
-        <div className="flex items-center justify-between gap-4 mb-4 outfit">
+        <div className="flex flex-col-reverse items-start justify-between gap-4 mb-4 lg:items-center lg:flex-row outfit">
           <div className="flex gap-6 border-b border-gray-200">
             <button
               onClick={() => setActiveTab("all")}
@@ -111,14 +111,16 @@ const QuotePack = () => {
             </button>
           </div>
 
-        <Link to="/new-quote">  <button className="flex items-center gap-2 px-3 py-2 text-lg text-white rounded-xl orange outfit over:bg-amber-600">
-            <Plus size={16} />
-            Create New Pack
-          </button>
+          <Link to="/new-quote">
+            {" "}
+            <button className="flex items-center gap-2 px-3 py-2 text-lg text-white rounded-xl orange outfit over:bg-amber-600">
+              <Plus size={16} />
+              Create New Pack
+            </button>
           </Link>
         </div>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
           {filteredPacks.map((pack) => (
             <QuotePackCard key={pack.id} pack={pack} />
           ))}

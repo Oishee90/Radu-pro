@@ -54,9 +54,9 @@ const AdminSidebar = ({ collapsed }) => {
           {/* Lesson Plan */}
           <NavLink
             to="/"
-            className="flex items-center justify-between w-[280px]"
+            className="flex items-center justify-between "
           >
-            <div className="flex items-center justify-between w-[280px] font-medium   pb-3 pt-7">
+            <div className="flex items-center justify-between pb-3 font-medium pt-7">
               <div
                 className={`flex items-center space-x-2 justify-start gap-2  p-5 text-center ${
                   collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px] "
@@ -73,9 +73,9 @@ const AdminSidebar = ({ collapsed }) => {
           {/*   User Management */}
           <NavLink
             to="/user-management"
-            className="flex items-center justify-between w-[280px]"
+            className="flex items-center justify-between "
           >
-            <div className="flex items-center justify-between w-[280px] font-medium pb-3  ">
+            <div className="flex items-center justify-between pb-3 font-medium ">
               <div
                 className={`flex items-center space-x-2 justify-start gap-2  p-5 text-center ${
                   collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px] "
@@ -94,9 +94,9 @@ const AdminSidebar = ({ collapsed }) => {
           {/*  Content Moderation */}
           <NavLink
             to="/content-moderation"
-            className="flex items-center justify-between w-[280px]"
+            className="flex items-center justify-between"
           >
-            <div className="flex items-center justify-between w-[280px] font-medium pb-3 ">
+            <div className="flex items-center justify-between pb-3 font-medium ">
               <div
                 className={`flex items-center space-x-2 justify-start gap-2  p-5 text-center ${
                   collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px]"
@@ -115,9 +115,9 @@ const AdminSidebar = ({ collapsed }) => {
           {/* Quote Packs */}
           <NavLink
             to="/quote-packs"
-            className="flex items-center justify-between w-[280px]"
+            className="flex items-center justify-between ]"
           >
-            <div className="flex items-center justify-between w-[280px] font-medium pb-3 ">
+            <div className="flex items-center justify-between pb-3 font-medium ">
               <div
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
                   collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px] "
@@ -133,9 +133,9 @@ const AdminSidebar = ({ collapsed }) => {
           {/* User Feedback */}
           <NavLink
             to="/user-feedback"
-            className="flex items-center justify-between w-[280px]"
+            className="flex items-center justify-between"
           >
-            <div className="flex items-center justify-between w-[280px] font-medium pb-3 ">
+            <div className="flex items-center justify-between pb-3 font-medium ">
               <div
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
                   collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px]  "
@@ -153,9 +153,9 @@ const AdminSidebar = ({ collapsed }) => {
           {/* Payments */}
           <NavLink
             to="/payments"
-            className="flex items-center justify-between w-[280px]"
+            className="flex items-center justify-between "
           >
-            <div className="flex items-center justify-between w-[280px] font-medium pb-3">
+            <div className="flex items-center justify-between pb-3 font-medium">
               <div
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
                   collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px]   "
@@ -173,9 +173,9 @@ const AdminSidebar = ({ collapsed }) => {
           {/* Subscriptions */}
           <NavLink
             to="/subscriptions"
-            className="flex items-center justify-between w-[280px]"
+            className="flex items-center justify-between "
           >
-            <div className="flex items-center justify-between w-[280px] font-medium pb-3">
+            <div className="flex items-center justify-between pb-3 font-medium">
               <div
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
                   collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px]   "
@@ -193,9 +193,9 @@ const AdminSidebar = ({ collapsed }) => {
           {/* Settings */}
           <NavLink
             to="/settings"
-            className="flex items-center justify-between w-[280px]"
+            className="flex items-center justify-between "
           >
-            <div className="flex items-center justify-between w-[280px] font-medium pb-3">
+            <div className="flex items-center justify-between pb-3 font-medium">
               <div
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
                   collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px] "

@@ -36,7 +36,7 @@ const NewQuote = () => {
       {/* Header */}
       <Toaster></Toaster>
       {/* Action Buttons */}
-      <div className="flex items-center justify-between mb-6 space-x-3">
+      <div className="flex flex-col items-start justify-between mb-6 space-x-3 lg:flex-row lg:items-center">
         <h1 className="mb-6 text-2xl font-bold text-gray-800">
           Quote Pack Management
         </h1>
@@ -176,9 +176,11 @@ const NewQuote = () => {
 
         {/* Footer Buttons */}
         <div className="flex justify-end mt-8 space-x-3">
-         <Link to="/quote-packs"><button className="px-5 py-2 text-gray-700 transition border border-[#E5E7EB] rounded-md hover:bg-gray-100">
-            Cancel
-          </button></Link> 
+          <Link to="/quote-packs">
+            <button className="px-5 py-2 text-gray-700 transition border border-[#E5E7EB] rounded-md hover:bg-gray-100">
+              Cancel
+            </button>
+          </Link>
           <button
             onClick={handleCreatePack}
             className="px-5 py-2 text-white transition rounded-md orange hover:bg-amber-600"

@@ -36,7 +36,7 @@ const EditPack = () => {
       {/* Header */}
       <Toaster></Toaster>
       {/* Action Buttons */}
-      <div className="flex items-center justify-between mb-6 space-x-3">
+      <div className="flex flex-col items-start justify-between mb-6 space-x-3 lg:flex-row lg:items-center">
         <h1 className="mb-6 text-2xl font-bold text-gray-800">
           Quote Pack Management
         </h1>
