@@ -7,6 +7,7 @@ import { LuPanelRightClose } from "react-icons/lu";
 import { MdOutlineMenu } from "react-icons/md";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import { LuPanelLeftClose } from "react-icons/lu";
+import Header from "./MainHeader";
 const Root = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -71,7 +72,7 @@ const Root = () => {
       <div
         className={`flex-1  w-screen flex flex-col transition-all duration-300 ${mainContentClass}`}
       >
-        <MainHeader />
+        <Header />
         <main className="flex-1 p-4 user overflow-y-auto bg-[#fbf9f7]">
           <Outlet />
         </main>

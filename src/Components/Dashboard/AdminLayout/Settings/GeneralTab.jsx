@@ -67,7 +67,7 @@ const GeneralTab = () => {
       </div>
 
       {/* Password */}
-      <div className="p-6 mb-6 inter border border-[#B0B0B04D] rounded-xl w-full md:w-2/3dashboar">
+      <div className="p-6 mb-6 inter border border-[#B0B0B04D] rounded-xl w-full md:w-2/3">
         <h2 className="mb-5 text-lg font-bold text-[#767676]">Password</h2>
         <div>
           <label className="block mb-1 text-sm  text-[#B0B0B0] unbounded">
