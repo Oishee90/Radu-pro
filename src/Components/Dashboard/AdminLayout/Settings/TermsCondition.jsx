@@ -18,6 +18,7 @@ const TermsCondition = () => {
   const [content, setContent] = useState(data?.content);
   const terms = data?.type || "terms";
   const id = data?.id;
+  console.log(id);
   useEffect(() => {
     setContent(data?.content);
   }, [data]);
@@ -63,7 +64,7 @@ const TermsCondition = () => {
 
   const handleUpdate = async () => {
     try {
-      await updateTerms({ type: terms, content, id }).unwrap();
+      await updateTerms({ type: terms, content, id: id }).unwrap();
       refetch(); // refresh data after update
       Swal.fire({
         icon: "success",

@@ -61,7 +61,7 @@ const Privacy = () => {
 
   const handleUpdate = async () => {
     try {
-      await updateTerms({ type: PrivacyType, content, id }).unwrap();
+      await updateTerms({ type: PrivacyType, content, id: id }).unwrap();
       refetch();
       Swal.fire({
         icon: "success",
