@@ -23,12 +23,15 @@ import SubscriptionPlans from "./Components/Dashboard/AdminLayout/subscription/S
 import UserManagementTable from "./Components/Dashboard/AdminLayout/UserManagementTable";
 import UserFeedbackTable from "./Components/Dashboard/AdminLayout/UserFeedbackTable";
 import Settings from "./Components/Dashboard/AdminLayout/Settings/Settings";
-
+import { Provider } from "react-redux";
+import store from "./Redux/store";
+import { PrivateRoute } from "./routes/PrivateRoute";
+import PublicRoute from "./routes/PublicRoute";
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <Login />,
+    element:<PublicRoute><Login /></PublicRoute>,
   },
   {
     path: "/forgot",
@@ -48,47 +51,47 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <AdminDashboard></AdminDashboard>,
+        element:<PrivateRoute><AdminDashboard></AdminDashboard></PrivateRoute> ,
       },
-      {
-        path: "/content-moderation",
-        element: <ContentModeration></ContentModeration>,
-      },
+      // {
+      //   path: "/content-moderation",
+      //   element: <ContentModeration></ContentModeration>,
+      // },
       {
         path: "/quote-packs",
-        element: <QuotePack></QuotePack>,
+        element:<PrivateRoute><QuotePack></QuotePack></PrivateRoute>,
       },
       {
         path: "/edit-pack",
-        element: <EditPack></EditPack>,
+        element: <PrivateRoute><EditPack></EditPack></PrivateRoute>,
       },
       {
         path: "/new-quote",
-        element: <NewQuote></NewQuote>,
+        element: <PrivateRoute><NewQuote></NewQuote></PrivateRoute>,
       },
       {
         path: "/user-management",
-        element: <UserManagementTable></UserManagementTable>,
+        element: <PrivateRoute><UserManagementTable></UserManagementTable></PrivateRoute>,
       },
       {
         path: "/user-feedback",
-        element: <UserFeedbackTable></UserFeedbackTable>,
+        element: <PrivateRoute><UserFeedbackTable></UserFeedbackTable></PrivateRoute>,
       },
       {
         path: "/settings",
-        element: <Settings></Settings>,
+        element: <PrivateRoute><Settings></Settings></PrivateRoute>,
       },
       {
         path: "/terms",
-        element: <TermsCondition></TermsCondition>,
+        element: <PrivateRoute><TermsCondition></TermsCondition></PrivateRoute>,
       },
       {
         path: "/payments",
-        element: <Payment></Payment>,
+        element: <PrivateRoute><Payment></Payment></PrivateRoute>,
       },
       {
         path: "/subscriptions",
-        element: <SubscriptionPlans></SubscriptionPlans>,
+        element: <PrivateRoute><SubscriptionPlans></SubscriptionPlans></PrivateRoute>,
       },
     ],
   },
@@ -96,6 +99,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );

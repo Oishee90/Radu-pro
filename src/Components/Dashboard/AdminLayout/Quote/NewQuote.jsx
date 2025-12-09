@@ -10,7 +10,7 @@ const NewQuote = () => {
 
   const handleAddCategory = () => {
     if (categoryName.trim() === "") return;
-    console.log("New Category:", categoryName);
+    // console.log("New Category:", categoryName);
     toast.success(`Category "${categoryName}" added successfully!`);
     setCategoryName("");
     setShowPopup(false);
@@ -161,7 +161,7 @@ const NewQuote = () => {
                 </span>
               </label>
 
-              <label className="flex items-center">
+              {/* <label className="flex items-center">
                 <input
                   type="checkbox"
                   className="w-4 h-4 text-orange-500 border-[#E5E7EB] rounded focus:ring-orange-500"
@@ -169,7 +169,7 @@ const NewQuote = () => {
                 <span className="ml-2 text-sm text-[#1F2937]">
                   Publish immediately
                 </span>
-              </label>
+              </label> */}
             </div>
           </div>
         </div>

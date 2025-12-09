@@ -31,14 +31,14 @@ const Root = () => {
       >
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className={`absolute  base-color p-1 ${
+          className={`absolute  base-color p-1  ${
             collapsed
-              ? "top-[76px] right-[1.75rem]"
-              : "top-[87px] right-[0.75rem] "
+              ? "top-[89px] right-[1.75rem]"
+              : "top-[39px] right-[0.25rem] "
           }`}
         >
           {collapsed ? (
-            <LuPanelLeftClose size={20} />
+            <LuPanelLeftClose size={22} />
           ) : (
             <LuPanelRightClose size={17} />
           )}

@@ -4,66 +4,24 @@ import {
   FaQuoteRight,
   FaCheckCircle,
 } from "react-icons/fa";
-import { FiMessageSquare } from "react-icons/fi";
+import { FiMessageSquare, FiDollarSign } from "react-icons/fi";
 import { IoTrendingUpOutline } from "react-icons/io5";
 import StatsCard from "./admin/StatsCard";
 import LineChartBox from "./admin/LineChartBox";
-import BarChartBox from "./admin/BarChartBox";
-import PieChartBox from "./admin/PieChartBox";
-import ActivityList from "./admin/ActivityList";
-import { FiDollarSign } from "react-icons/fi";
-import RevenueList from "./admin/RevenueList";
+import { useGetStatsQuery } from "../../../Redux/feature/authapi";
+
 const AdminDashboard = () => {
-  const userGrowth = [
-    { month: "Jan", users: 200 },
-    { month: "Feb", users: 350 },
-    { month: "Mar", users: 500 },
-    { month: "Apr", users: 700 },
-    { month: "May", users: 900 },
-    { month: "Jun", users: 1100 },
-  ];
+  const { data, isLoading, error } = useGetStatsQuery();
 
-  const subscriptionData = [
-    { month: "Jan", free: 200, premium: 100 },
-    { month: "Feb", free: 350, premium: 200 },
-    { month: "Mar", free: 500, premium: 300 },
-    { month: "Apr", free: 650, premium: 400 },
-    { month: "May", free: 800, premium: 500 },
-    { month: "Jun", free: 900, premium: 650 },
-  ];
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching data</p>;
 
-  const pieData = [{ value: 35 }, { value: 25 }, { value: 15 }, { value: 20 }];
-
-  const activities = [
-    {
-      title: "New user registered",
-      user: "John Smith",
-      time: "2 hours ago",
-      color: "#3B82F6", // blue
-      day: "Today",
-    },
-    {
-      title: "New subscription",
-      user: "Premium Monthly Plan",
-      time: "4 hours ago",
-      color: "#22C55E", // green
-      day: "Today",
-    },
-    {
-      title: "New quote submitted for moderation",
-      user: "Sarah Johnson",
-      time: "5 hours ago",
-      color: "#F97316", // orange
-      day: "Today",
-    },
-    {
-      title: "New quote pack published",
-      user: "Motivation Quotes Vol. 3",
-      time: "Yesterday, 2:34 PM",
-      color: "#A855F7", // purple
-      day: "Yesterday",
-    },
-  ];
+  // Transform API user_growth data into chart format
+  const userGrowth =
+    data?.user_growth?.months?.map((month, index) => ({
+      month,
+      users: data.user_growth.users[index] || 0,
+    })) || [];
 
   return (
     <div className="min-h-screen p-6 outfit">
@@ -76,40 +34,28 @@ const AdminDashboard = () => {
         <StatsCard
           icon={<FaUsers />}
           title="Total Users"
-          value="12,628"
-          change="+2.5% from last week"
+          value={data?.total_users?.count || 0}
         />
         <StatsCard
           icon={<FiDollarSign />}
           title="Revenue"
-          value="$6,389"
-          change="+3.1% from last month"
+          value={data?.revenue || 0}
         />
         <StatsCard
           icon={<FiMessageSquare />}
           title="Pending Quotes"
-          value="42"
-          change="+12 since yesterday"
+          value={data?.pending_quotes || 0}
         />
         <StatsCard
           icon={<IoTrendingUpOutline />}
           title="Active Subscriptions"
-          value="2,354"
-          change="+7.2% from last month"
+          value={data?.active_subscriptions || 0}
         />
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 gap-6 mt-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 mt-6 ">
         <LineChartBox data={userGrowth} />
-        <RevenueList data={userGrowth} />
-        <BarChartBox data={subscriptionData} />
-        <PieChartBox data={pieData} />
-      </div>
-
-      {/* Activity */}
-      <div className="mt-6">
-        <ActivityList activities={activities} />
       </div>
     </div>
   );

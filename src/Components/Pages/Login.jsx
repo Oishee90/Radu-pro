@@ -1,154 +1,129 @@
-import { useState } from "react";
+/* eslint-disable react/no-unescaped-entities */
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "../../assets/logo.png";
-import bg from "../../assets/kev-login.png";
-import toast from "react-hot-toast";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+import { useSuperAdminLoginMutation } from "../../Redux/feature/authapi";
+import { useDispatch } from "react-redux";
+import { userLoggedIn } from "../../Redux/feature/authSlice";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+
+  const [isLoading, setLoading] = useState(false);
+  const [superAdminLogin] = useSuperAdminLoginMutation();
+  //  local state to trigger one-time animation on mount
+  const [playFlip, setPlayFlip] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // trigger animation on mount (next tick) so it always plays once
+    const t = setTimeout(() => setPlayFlip(true), 20);
+    // optional: remove play state after animation duration to keep DOM clean
+    const clear = setTimeout(() => setPlayFlip(false), 1400); // match duration below
+    return () => {
+      clearTimeout(t);
+      clearTimeout(clear);
+    };
+  }, []);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage("");
 
-    if (email === "admin@gmail.com" && password === "admin@gmail.com") {
+    try {
+      const res = await superAdminLogin({
+        email,
+        password,
+      }).unwrap();
+      // console.log("Login response:", res);
+      // API response expected:
+      // res = { access: "token", user: {...} }
+
+      dispatch(
+        userLoggedIn({
+          access_token: res?.access_token,
+          user: res?.user,
+        })
+      );
+
       toast.success("Login Successful!");
-
-      setTimeout(() => {
-        navigate("/");
-      }, 1500); // navigate after 1.5sec (you can change timing)
-    } else {
-      toast.error("❌ Invalid email or password.");
+      navigate("/");
+    } catch (err) {
+      toast.error(err?.data?.message || "Invalid email or password");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 bg-[#f9f6f2]">
-      <Toaster></Toaster>
-      <div className="w-full max-w-md">
-        {/* Logo */}
-        <div className="flex justify-center mb-4">
-          <img src={logo} alt="Logo" className="" />
+    <div className="flex items-center justify-center min-h-screen p-4 bg-white inter">
+      <Toaster />
+
+      {/* add animate-flip class when playFlip is true; otherwise keep same */}
+      <div
+        className={` w-full max-w-xl rounded-xl shadow-lg p-8 flex flex-col items-center border border-[#FFFFFF] bodybg ${
+          playFlip ? "animate-flip-card" : ""
+        }`}
+      >
+        <div className="flex flex-col items-center mb-8">
+          <div className="flex items-center gap-2 mb-6">
+            <img src={logo} alt="" />
+            <h1 className="text-3xl text-[#FFFFFF] roboto">PPR Bangladesh</h1>
+          </div>
+          <h2 className="text-2xl font-semibold text-[#272727] roboto">
+            Sign in
+          </h2>
         </div>
 
-        {/* Welcome Text */}
-        <div className="mb-8 text-center">
-          <h1 className="text-4xl font-normal text-[#7D7D7D] outfit">
-            Welcome back
-          </h1>
-          <p className="mt-1 text-base  text-[#7D7D7D] outfit">
-            We're so excited to see you again!
-          </p>
-        </div>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Email */}
-          <div>
-            <label
-              htmlFor="email"
-              className="block mb-1 text-sm font-medium text-gray-700"
-            >
-              Email
+        <form onSubmit={handleSubmit} className="w-full space-y-6">
+          <div className="">
+            <label htmlFor="password" className="text-lg font-medium white">
+              Enter Your Email
             </label>
             <input
               type="email"
-              id="email"
+              placeholder="Enter Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder=""
-              className="w-full px-4 py-3 transition border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              className="w-full px-2 py-3 bg-white border border-[#dfeee4] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#72C02C] focus:border-transparent transition  placeholder:text-[#9e9e9e] mt-2"
               required
             />
           </div>
 
-          {/* Password */}
-          <div>
-            <label
-              htmlFor="password"
-              className="block mb-1 text-sm font-medium text-gray-700"
-            >
-              Password
+          <div className="relative ">
+            <label htmlFor="password" className="text-lg font-medium white">
+              Enter Your Password
             </label>
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 pr-12 transition border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                required
-              />
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                className="absolute text-gray-500 transform -translate-y-1/2 right-3 top-1/2 hover:text-gray-700"
-              >
-                {showPassword ? (
-                  <FaEyeSlash className="w-5 h-5" />
-                ) : (
-                  <FaEye className="w-5 h-5" />
-                )}
-              </button>
-            </div>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-2 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#72C02C] focus:border-transparent transition  placeholder:text-[#9e9e9e] mt-2"
+              required
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute white -translate-y-1/2 right-3 top-[69%] hover:text-gray-200"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
           </div>
 
-          {/* Forgot Password */}
-          {/* <div className="text-right">
-            <NavLink
-              to="/forgot"
-              className="text-sm font-medium text-[#DF951F] hover:text-[#DF951F]"
-            >
-              Forgot your password?
-            </NavLink>
-          </div> */}
-
-          {/* Error Message */}
-          {errorMessage && (
-            <div className="text-sm text-center text-red-600 animate-pulse">
-              {errorMessage}
-            </div>
-          )}
-
-          {/* Submit Button */}
           <button
-            type="submit"
-            className="w-full py-3 font-medium text-white transition duration-200 bg-[#DF951F] rounded-lg hover:bg-orange-600"
+            disabled={isLoading}
+            className="w-full py-3 main-color text-white rounded-lg font-medium hover:bg-[#599722] transition"
           >
-            Log In
+            {isLoading ? "Logging in..." : "Log In"}
           </button>
         </form>
-
-        {/* Sign Up Link */}
-        {/* <p className="mt-6 text-sm text-center text-gray-600">
-          Don't have an account?{" "}
-          <NavLink
-            to="/signup"
-            className="font-medium text-[#DF951F] hover:text-[#DF951F]"
-          >
-            Sign up
-          </NavLink>
-        </p> */}
       </div>
-
-      {/* Background Image (Hidden on Mobile, Visible on Large Screens) */}
-      <div
-        className="fixed inset-0 hidden -z-10 lg:block"
-        style={{
-          backgroundImage: `url(${bg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      ></div>
     </div>
   );
 };

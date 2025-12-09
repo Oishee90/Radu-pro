@@ -13,10 +13,13 @@ import { BsBoxSeam } from "react-icons/bs";
 import { MdOutlineFeedback } from "react-icons/md";
 import { MdOutlineSubscriptions } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
+import { userLoggedOut } from "../../../Redux/feature/authSlice";
+import { persistor } from "../../../Redux/store";
+import { useDispatch } from "react-redux";
 const AdminSidebar = ({ collapsed }) => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const dispatch = useDispatch();
   const isActiveDashboard = location.pathname === "/";
   const isActiveContent = location.pathname.startsWith("/content-moderation");
   const isActiveQuote =
@@ -32,6 +35,8 @@ const AdminSidebar = ({ collapsed }) => {
   const isActiveSubscriptions = location.pathname.startsWith("/subscriptions");
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
+    dispatch(userLoggedOut());
+    persistor.purge();
     navigate("/login", { replace: true });
   };
 
@@ -45,22 +50,30 @@ const AdminSidebar = ({ collapsed }) => {
               collapsed ? "px-0" : "px-6 "
             }`}
           >
-            <img src={logo} alt="Logo" className="mb-2" />
+            <div className="flex items-center gap-2">
+              <img src={logo} alt="" />
+              <h1
+                className={` text-sm md:text-xl font-semibold text-black roboto ${
+                  collapsed ? "hidden" : "block "
+                }`}
+              >
+                PPR Bangladesh
+              </h1>
+            </div>
           </div>
         </Link>
 
         {/* Menu Items */}
         <nav className="flex flex-col text-[#364636]">
           {/* Lesson Plan */}
-          <NavLink
-            to="/"
-            className="flex items-center justify-between "
-          >
+          <NavLink to="/" className="flex items-center justify-between ">
             <div className="flex items-center justify-between pb-3 font-medium pt-7">
               <div
                 className={`flex items-center space-x-2 justify-start gap-2  p-5 text-center ${
                   collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px] "
-                }  ${isActiveDashboard ? "orange text-white " : "base-color"}`}
+                }  ${
+                  isActiveDashboard ? "main-color text-white " : "base-color"
+                }`}
               >
                 <FiHome className="w-[24px] h-[24px] " />
                 {!collapsed && (
@@ -80,7 +93,9 @@ const AdminSidebar = ({ collapsed }) => {
                 className={`flex items-center space-x-2 justify-start gap-2  p-5 text-center ${
                   collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px] "
                 } ${
-                  isActiveUserManagement ? "orange text-white " : "base-color"
+                  isActiveUserManagement
+                    ? "main-color text-white "
+                    : "base-color"
                 }`}
               >
                 <GoPeople className="w-[24px] h-[24px] montserrat" />
@@ -92,7 +107,7 @@ const AdminSidebar = ({ collapsed }) => {
           </NavLink>
 
           {/*  Content Moderation */}
-          <NavLink
+          {/* <NavLink
             to="/content-moderation"
             className="flex items-center justify-between"
           >
@@ -110,10 +125,10 @@ const AdminSidebar = ({ collapsed }) => {
                 )}
               </div>
             </div>
-          </NavLink>
+          </NavLink> */}
 
           {/* Quote Packs */}
-          <NavLink
+          {/* <NavLink
             to="/quote-packs"
             className="flex items-center justify-between ]"
           >
@@ -129,9 +144,9 @@ const AdminSidebar = ({ collapsed }) => {
                 )}
               </div>
             </div>
-          </NavLink>
+          </NavLink> */}
           {/* User Feedback */}
-          <NavLink
+          {/* <NavLink
             to="/user-feedback"
             className="flex items-center justify-between"
           >
@@ -149,9 +164,9 @@ const AdminSidebar = ({ collapsed }) => {
                 )}
               </div>
             </div>
-          </NavLink>
+          </NavLink> */}
           {/* Payments */}
-          <NavLink
+          {/* <NavLink
             to="/payments"
             className="flex items-center justify-between "
           >
@@ -169,9 +184,9 @@ const AdminSidebar = ({ collapsed }) => {
                 )}
               </div>
             </div>
-          </NavLink>
+          </NavLink> */}
           {/* Subscriptions */}
-          <NavLink
+          {/* <NavLink
             to="/subscriptions"
             className="flex items-center justify-between "
           >
@@ -189,7 +204,7 @@ const AdminSidebar = ({ collapsed }) => {
                 )}
               </div>
             </div>
-          </NavLink>
+          </NavLink> */}
           {/* Settings */}
           <NavLink
             to="/settings"
@@ -200,7 +215,7 @@ const AdminSidebar = ({ collapsed }) => {
                 className={`flex items-center space-x-2 justify-start gap-4 p-5 text-center ${
                   collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px] "
                 } ${
-                  isActiveSettings ? "orange text-[#FAF1E6] " : "base-color"
+                  isActiveSettings ? "main-color text-[#FAF1E6] " : "base-color"
                 }`}
               >
                 <IoSettingsOutline className="w-[24px] h-[24px]" />

@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=Outfit:wght@100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=Outfit:wght@100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Unbounded:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Unbounded:wght@200..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -28,14 +29,17 @@
     font-family: "Inter", sans-serif;
  
   }
+  .bodybg {
+
+  background: #C8DDBC;
+}
   .orange{
     background-color: #DF951F;
   
   }
-  .unbounded {
-  font-family: "Unbounded", sans-serif;
-  
-}
+  .main-color{
+  background-color: #72C02C;
+  }
   .base-color{
     color:#6B7280;
   }
@@ -45,5 +49,44 @@
   .jodi .jodit-container:not(.jodit_inline) .jodit-workplace{
    height: 400px !important;
   }
+  @keyframes cardFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* flip card animation (one-time) */
+@keyframes flipInY {
+  0% {
+    transform: perspective(800px) rotateY(-90deg) translateY(20px) scale(0.98);
+    opacity: 0;
+    transform-origin: center;
+  }
+  40% {
+    transform: perspective(800px) rotateY(10deg) translateY(0) scale(1.02);
+    opacity: 1;
+  }
+  70% {
+    transform: perspective(800px) rotateY(-6deg) translateY(0) scale(0.995);
+  }
+  100% {
+    transform: perspective(800px) rotateY(0deg) translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-flip-card {
+  animation: flipInY 1.2s cubic-bezier(.25,.8,.25,1) both;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+
   
   

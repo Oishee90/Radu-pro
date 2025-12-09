@@ -164,7 +164,7 @@ const SubscriptionPlans = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white outfit">
       <div className="px-6 py-6 ">
         {/* Header */}
         <div className="flex flex-col items-start justify-between gap-6 mb-8 lg:flex-row lg:items-center">
@@ -186,9 +186,9 @@ const SubscriptionPlans = () => {
               className="flex flex-col h-full bg-white border border-gray-300 shadow-sm rounded-xl"
             >
               {/* Card Content - grows to fill space */}
-              <div className="flex flex-col flex-1 p-6">
+              <div className="flex flex-col flex-1 ">
                 {/* Header */}
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start justify-between mb-4 px-6 pt-4  rounded-t-xl pb-6 border-b-2 border-gray-200 bg-[#FFFFFF]">
                   <div>
                     <h2 className="text-xl font-semibold text-gray-900">
                       {plan.name}
@@ -203,7 +203,7 @@ const SubscriptionPlans = () => {
                 </div>
 
                 {/* Price */}
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-6 px-6">
                   <p className="text-lg font-bold text-gray-700">
                     User Acquisition & Retention
                   </p>
@@ -218,7 +218,7 @@ const SubscriptionPlans = () => {
                 </div>
 
                 {/* Features - takes remaining space */}
-                <div className="flex-1 space-y-5">
+                <div className="flex-1 space-y-5 px-6 pb-2">
                   {plan.features.map((feat, idx) => (
                     <div key={idx}>
                       <h3 className="flex items-center gap-2 font-medium text-gray-900">
@@ -242,16 +242,16 @@ const SubscriptionPlans = () => {
               </div>
 
               {/* Bottom Border + Buttons - always at bottom */}
-              <div className="px-6 pt-4 pb-6 border-t-2 border-gray-200">
+              <div className="px-6 pt-4 rounded-b-xl pb-6 border-t-2 border-gray-200 bg-[#FFFFFF]">
                 <div className="flex items-center justify-between gap-3">
                   {plan.status === "active" ? (
                     <>
-                      <button className="px-4 py-2 font-medium text-white transition bg-green-600 rounded-md hover:bg-green-700">
+                      <button className="px-4 py-2 font-medium text-white transition bg-green-600 rounded-xl outfit hover:bg-green-700 text-sm ">
                         Activate
                       </button>
                       <button
                         onClick={() => openEditModal(plan)}
-                        className="flex items-center gap-1 px-4 py-2 font-medium text-white transition bg-orange-600 rounded-md hover:bg-orange-700"
+                        className="flex items-center gap-1 px-4 py-2 font-medium text-white transition bg-orange-600 rounded-xl hover:bg-orange-700 outfit"
                       >
                         <Edit className="w-4 h-4" />
                         Edit
@@ -259,12 +259,12 @@ const SubscriptionPlans = () => {
                     </>
                   ) : (
                     <>
-                      <button className="px-4 py-2 font-medium text-white transition bg-red-600 rounded-md hover:bg-red-700">
+                      <button className="px-4 py-2 font-medium text-white  text-sm transition bg-red-600 rounded-xl outfit hover:bg-red-700">
                         Deactivate
                       </button>
                       <button
                         onClick={() => openEditModal(plan)}
-                        className="flex items-center gap-1 px-4 py-2 font-medium text-white transition bg-orange-600 rounded-md hover:bg-orange-700"
+                        className="flex items-center gap-1 px-4 py-2 font-medium text-white transition bg-[#DF951F] rounded-xl hover:bg-orange-700 outfit text-sm "
                       >
                         <Edit className="w-4 h-4" />
                         Edit
