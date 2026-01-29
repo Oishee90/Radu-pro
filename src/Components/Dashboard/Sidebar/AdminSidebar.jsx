@@ -16,6 +16,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { userLoggedOut } from "../../../Redux/feature/authSlice";
 import { persistor } from "../../../Redux/store";
 import { useDispatch } from "react-redux";
+import { GrDocumentText } from "react-icons/gr";
 const AdminSidebar = ({ collapsed }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,6 +30,8 @@ const AdminSidebar = ({ collapsed }) => {
 
   const isActiveUserManagement =
     location.pathname.startsWith("/user-management");
+  const isActiveAppManagement =
+    location.pathname.startsWith("/app-manaegement");
   const isActiveUserFeedback = location.pathname.startsWith("/user-feedback");
   const isActiveSettings = location.pathname.startsWith("/settings");
   const isActivePayments = location.pathname.startsWith("/payments");
@@ -45,7 +48,7 @@ const AdminSidebar = ({ collapsed }) => {
       {/* Logo */}
       <div className="flex flex-col py-4">
         <Link to="/">
-          <div
+          <divu
             className={`flex items-center gap-2  pt-2 pb-4 cursor-pointer ${
               collapsed ? "px-0" : "px-6 "
             }`}
@@ -60,7 +63,7 @@ const AdminSidebar = ({ collapsed }) => {
                 PPR Bangladesh
               </h1>
             </div>
-          </div>
+          </divu>
         </Link>
 
         {/* Menu Items */}
@@ -101,6 +104,28 @@ const AdminSidebar = ({ collapsed }) => {
                 <GoPeople className="w-[24px] h-[24px] montserrat" />
                 {!collapsed && (
                   <h1 className="text-[20px] font-medium ">User Management</h1>
+                )}
+              </div>
+            </div>
+          </NavLink>
+          {/*   App Management */}
+          <NavLink
+            to="/app-manaegement"
+            className="flex items-center justify-between "
+          >
+            <div className="flex items-center justify-between pb-3 font-medium ">
+              <div
+                className={`flex items-center space-x-2 justify-start gap-2  p-5 text-center ${
+                  collapsed ? "w-[77px] h-[40px]" : "w-[267px] h-[50px] "
+                } ${
+                  isActiveAppManagement
+                    ? "main-color text-white "
+                    : "base-color"
+                }`}
+              >
+                <GrDocumentText className="w-[24px] h-[24px] montserrat" />
+                {!collapsed && (
+                  <h1 className="text-[20px] font-medium ">App Management</h1>
                 )}
               </div>
             </div>

@@ -3,7 +3,8 @@ import { Globe, FileText, Shield, ChevronDown } from "lucide-react";
 import GeneralTab from "./GeneralTab";
 import TermsCondition from "./TermsCondition";
 import Privacy from "./Privacy";
-
+import MenuCustomize from "./MenuCustomize";
+import { FaPlus } from "react-icons/fa6";
 const Settings = () => {
   const [activeTab, setActiveTab] = useState("general");
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -21,6 +22,11 @@ const Settings = () => {
       label: "Privacy Policy",
       icon: <Shield className="w-4 h-4" />,
     },
+    {
+      id: "menuCustomization",
+      label: "Menu Customization",
+      icon: <FaPlus className="w-4 h-4" />,
+    },
   ];
 
   // Close dropdown when clicking outside
@@ -35,7 +41,7 @@ const Settings = () => {
   }, []);
 
   return (
-    <div className="min-h-screen p-6 outfit">
+    <div className="min-h-screen p-6 inter">
       <h1 className="mb-6 text-2xl font-semibold text-gray-800">Settings</h1>
 
       {/* Tabs for large screens */}
@@ -101,6 +107,7 @@ const Settings = () => {
         {activeTab === "general" && <GeneralTab />}
         {activeTab === "terms" && <TermsCondition />}
         {activeTab === "privacy" && <Privacy />}
+        {activeTab === "menuCustomization" && <MenuCustomize />}
       </div>
     </div>
   );
